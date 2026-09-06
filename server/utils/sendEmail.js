@@ -1,8 +1,17 @@
 // const nodeMailer = require('nodemailer');
-const sgMail = require("@sendgrid/mail");
-sgMail.setApiKey(process.env.SENDGRID_API_KEY);
+const sgMail = require('@sendgrid/mail');
+
+const sendGridApiKey = process.env.SENDGRID_API_KEY;
+
+if (sendGridApiKey && sendGridApiKey.startsWith('SG.')) {
+  sgMail.setApiKey(sendGridApiKey);
+}
 
 const sendEmail = async (options) => {
+  if (!sendGridApiKey || !sendGridApiKey.startsWith('SG.')) {
+    throw new Error('SendGrid is not configured');
+  }
+
   // const transporter = nodeMailer.createTransport({
   //     host: process.env.SMTP_HOST,
   //     port: process.env.SMTP_PORT,
@@ -31,7 +40,7 @@ const sendEmail = async (options) => {
   sgMail
     .send(msg)
     .then(() => {
-      console.log("Email Sent");
+      console.log('Email Sent');
     })
     .catch((error) => {
       console.error(error);

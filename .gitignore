@@ -1,2 +1,34 @@
-/node_modules
-package-lock.json
+# Node dependencies
+node_modules/
+
+# Environment files and secrets
+.env
+.env.*
+!.env.example
+server/config/.config.env
+
+# Foundry generated files
+cache/
+out/
+broadcast/
+
+# Logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+pnpm-debug.log*
+
+# Coverage and build output
+coverage/
+dist/
+build/
+
+# Operating system files
+.DS_Store
+Thumbs.db
+
+# Editor files
+.vscode/*
+!.vscode/settings.json
+!.vscode/extensions.json
+.idea/
