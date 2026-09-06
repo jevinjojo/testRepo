@@ -12,10 +12,11 @@ RentVerse is a modern real estate investment platform that combines traditional 
 </div>
 
 ---
-![Dashboard Overview](public/home.jpg)
----
+
+## ![Dashboard Overview](public/home.jpg)
 
 # 🌐 RentVerse Demo
+
 ---
 
 RentVerse is a demo platform showcasing a next-generation real-estate experience powered by cryptocurrency payments, interactive 3D property visualization, and a fully responsive, component-driven architecture.
@@ -24,65 +25,71 @@ RentVerse is a demo platform showcasing a next-generation real-estate experience
 
 ## ✨ Key Features
 
-- 💱 Cryptocurrency-enabled property transactions  
-- 📱 Mobile-responsive interface  
-- 🔍 SEO-optimized architecture  
-- 📊 Real-time market data integration  
-- 🏡 Interactive 3D property visualization  
-- 🔗 Smart contract integration for secure blockchain transactions  
+- 💱 Cryptocurrency-enabled property transactions
+- 📱 Mobile-responsive interface
+- 🔍 SEO-optimized architecture
+- 📊 Real-time market data integration
+- 🏡 Interactive 3D property visualization
+- 🔗 Smart contract integration for secure blockchain transactions
 
 ---
 
-![Dashboard Overview](public/client.png)
----
+## ![Dashboard Overview](public/client.png)
 
 ## 🧩 Core Pages and Components
 
 ### 1. 🏠 Home Page
-- Hero section with value proposition  
-- Featured properties grid  
-- “Why Choose Us” crypto benefits section  
-- Step-by-step investment guide  
-- Latest blog previews  
-- Community section  
+
+- Hero section with value proposition
+- Featured properties grid
+- “Why Choose Us” crypto benefits section
+- Step-by-step investment guide
+- Latest blog previews
+- Community section
 
 ### 2. 🏘️ Properties Page
-- Searchable and filterable property grid  
-- Advanced search options  
-- Detailed property cards  
-- Three.js-powered 3D viewer  
+
+- Searchable and filterable property grid
+- Advanced search options
+- Detailed property cards
+- Three.js-powered 3D viewer
 
 ### 3. 👥 About Us Page
-- Mission and vision overview  
-- Team member profiles  
-- Platform statistics and milestones  
+
+- Mission and vision overview
+- Team member profiles
+- Platform statistics and milestones
 
 ### 4. ✍️ Blog Section
-- Category-based filtering  
-- Blog search functionality  
-- Author profiles  
-- Social sharing options  
+
+- Category-based filtering
+- Blog search functionality
+- Author profiles
+- Social sharing options
 
 ---
 
 ## 🧱 Development Guidelines
 
 ### 🧩 Component Standards
-- Follow atomic design principles  
-- Use TypeScript for type safety  
-- Apply Tailwind breakpoints for responsiveness  
-- Add comments and maintain documentation  
+
+- Follow atomic design principles
+- Use TypeScript for type safety
+- Apply Tailwind breakpoints for responsiveness
+- Add comments and maintain documentation
 
 ### 🔧 State Management
-- React Context for shared global state  
-- Redux for complex or multi-layered data flows  
-- Minimal local component state  
+
+- React Context for shared global state
+- Redux for complex or multi-layered data flows
+- Minimal local component state
 
 ### 🔐 Security Practices
-- Validate all user inputs  
-- Secure wallet connection handling  
-- Follow blockchain transaction best practices  
-- Run regular dependency and security audits  
+
+- Validate all user inputs
+- Secure wallet connection handling
+- Follow blockchain transaction best practices
+- Run regular dependency and security audits
 
 ---
 
@@ -90,11 +97,11 @@ RentVerse is a demo platform showcasing a next-generation real-estate experience
 
 We welcome contributions! Please follow the workflow below:
 
-1. 📌 Create a new feature branch  
-2. 🧪 Write tests for added functionality  
-3. 📝 Document new or updated features  
-4. 🎯 Maintain consistent coding style  
-5. 🔁 Submit a pull request with a clear description  
+1. 📌 Create a new feature branch
+2. 🧪 Write tests for added functionality
+3. 📝 Document new or updated features
+4. 🎯 Maintain consistent coding style
+5. 🔁 Submit a pull request with a clear description
 
 ---
 
